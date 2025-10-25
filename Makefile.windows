@@ -1,0 +1,23 @@
+# Makefile for building sgftopng on Windows
+#
+# Requirements:
+#   - GCC (MinGW or similar)
+#   - ImageMagick's 'convert' command in PATH (for runtime)
+#
+# Usage:
+#   mingw32-make -f Makefile.windows        # Build with MinGW
+#   make -f Makefile.windows                # Build with other make
+
+CC=gcc
+CFLAGS=-Wall -O3 -D_WIN32
+TARGET=sgftopng.exe
+
+all: $(TARGET)
+
+$(TARGET): sgftopng_windows.c
+	$(CC) $(CFLAGS) -o $(TARGET) sgftopng_windows.c
+
+clean:
+	del /Q $(TARGET) 2>nul || rm -f $(TARGET)
+
+.PHONY: all clean

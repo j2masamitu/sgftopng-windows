@@ -1,0 +1,27 @@
+# Build artifacts
+*.o
+*.obj
+*.exe.stackdump
+
+# Output files
+*.png
+*.jpg
+*.gif
+!test*.png
+
+# Temporary files
+*.tmp
+*~
+*.swp
+*.swo
+
+# IDE files
+.vscode/
+.vs/
+*.suo
+*.user
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
