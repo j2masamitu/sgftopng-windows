@@ -147,6 +147,16 @@ SGF (Smart Game Format) は囲碁の棋譜を記録するための標準的な�
 
 ## トラブルシューティング
 
+### ImageMagick 7.x 互換性の重要なお知らせ (v1.0.1 で修正済み)
+
+**v1.0.1 以降をご使用ください。** 以前のバージョン (v1.0) では、Windows + ImageMagick 7.x 環境で以下のエラーが発生していました：
+
+```
+magick: no decode delegate for this image format `'#f2b06d''
+```
+
+**解決方法**: 最新版 (v1.0.1 以降) の `sgftopng.exe` を使用してください。
+
 ### "convert: command not found" または "magick: command not found"
 
 ImageMagick がインストールされていないか、パスが通っていません。
@@ -281,6 +291,36 @@ gcc -Wall -O3 -o sgftopng.exe sgftopng_windows.c
 # Or using Makefile
 mingw32-make -f Makefile.windows
 ```
+
+## Troubleshooting
+
+### Important Notice: ImageMagick 7.x Compatibility (Fixed in v1.0.1)
+
+**Please use v1.0.1 or later.** Previous versions (v1.0) had an error on Windows + ImageMagick 7.x environments:
+
+```
+magick: no decode delegate for this image format `'#f2b06d''
+```
+
+**Solution**: Use the latest version (v1.0.1 or later) of `sgftopng.exe`.
+
+### "convert: command not found" or "magick: command not found"
+
+ImageMagick is not installed or not in PATH.
+
+1. Install ImageMagick
+2. Add ImageMagick installation folder to PATH environment variable
+3. Restart command prompt
+
+### Japanese filenames or paths are garbled
+
+Use PowerShell instead of Command Prompt, or avoid Japanese characters in paths.
+
+### Image not generated
+
+1. Verify SGF file format is correct
+2. Verify ImageMagick is properly installed
+3. Use `-info` option to check if SGF file can be read
 
 ## License
 

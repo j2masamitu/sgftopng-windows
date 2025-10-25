@@ -1202,8 +1202,17 @@ int main(int argc, char **argv) {
 	if (movenr > 99)
 		pointsize = 12;
 
-	p += sprintf(p, "convert -size %dx%d xc:%s",
+	/* Windows: Use 'magick' command and quote color codes properly
+	 * The # character in color codes like #f2b06d needs to be quoted
+	 * to prevent shell misinterpretation on Windows cmd.exe
+	 */
+#ifdef _WIN32
+	p += sprintf(p, "magick -size %dx%d xc:\"%s\"",
 		     bdwidth, bdheight, bgcolor);
+#else
+	p += sprintf(p, "convert -size %dx%d xc:\"%s\"",
+		     bdwidth, bdheight, bgcolor);
+#endif
 
 	if (!optfont)
 		optfont = "Times-Roman";
@@ -1226,7 +1235,11 @@ int main(int argc, char **argv) {
 			else if (system(command))
 				errexit("(partial) draw command failed");
 			p = command;
+#ifdef _WIN32
+			p += sprintf(p, "magick %s", quoted(tmpfile));
+#else
 			p += sprintf(p, "convert %s", quoted(tmpfile));
+#endif
 			p += sprintf(p, " -font '%s' -pointsize %d",
 				     optfont, pointsize);
 		}
